@@ -7,15 +7,16 @@ const manager = new ProductManager("products.json");
 app.use(express.urlencoded({ extended: true }));
 
 app.get("/products", async (req, res) => {
-  res.send(await manager.getProducts());
-});
-
-app.get("/products", async (req, res) => {
   let { limit } = req.query;
-  console.log(limit);
   let products = await manager.getProducts();
   res.send(products.slice(0, limit));
 });
+
+
+app.get("/products", async (req, res) => {
+  res.send(await manager.getProducts());
+});
+
 
 app.get("/products/:id", async (req, res) => {
   let id = req.params.id;
